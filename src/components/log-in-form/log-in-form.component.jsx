@@ -1,33 +1,32 @@
 import './log-in-form.styles.scss';
+import { useState } from 'react';
 
-import { signInWithGooglePopup, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
-import { SignIn } from '../../utils/firebase/firebase.utils';
-import { useState } from 'react';
+import { signInWithGooglePopup, SignIn } from '../../utils/firebase/firebase.utils';
 
 const defaultValues = {
     email: '',
     password: ''
 };
 
-const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
-};
-
 const LogInForm = () => {
-    const [defaults, setDefaults] = useState(defaultValues);
+    const [ defaults, setDefaults ] = useState(defaultValues);
     const { email, password } = defaults;
 
     const handleSubmit = (event) => {
         event.preventDefault();
-    
-        SignIn(email, password).catch(error => {
-            if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found")
-                alert("User or Password wrong");
-        });
+
+        SignIn(email, password)
+            .catch(error => {
+                if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found")
+                    alert("User or Password wrong");
+            });
+    };
+
+    const logGoogleUser = async () => {
+        await signInWithGooglePopup();
     };
 
     const changeHandler = (event) => {
