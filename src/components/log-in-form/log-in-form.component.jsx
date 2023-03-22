@@ -2,7 +2,7 @@ import './log-in-form.styles.scss';
 import { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 import { signInWithGooglePopup, SignIn } from '../../utils/firebase/firebase.utils';
 
@@ -43,7 +43,7 @@ const LogInForm = () => {
                 <FormInput label={"Password"} required onChange={changeHandler} type="password" name="password" value={password} />
                 <div className='buttons-container'>
                     <Button type="submit">LogIn</Button>
-                    <Button type="button" buttonType="google" onClick={logGoogleUser} >Google Login</Button>
+                    <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUser} >Google Login</Button>
                 </div>
             </form>
         </div>
